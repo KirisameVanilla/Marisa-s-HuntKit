@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="Dalamud.Plugin.Bootstrap.targets" />
+
+  <PropertyGroup>
+      <Author>KirisameVanilla</Author>
+  </PropertyGroup>
+
+  <PropertyGroup>
+      <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <PropertyGroup>
+      <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>0.0.0.1</Version>
+    <Description>A tool kit for Hunting.</Description>
+    <PackageProjectUrl>https://github.com/KirisameVanilla/Template</PackageProjectUrl>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+    <IsPackable>false</IsPackable>
+    <TargetFramework>net8.0-windows8.0</TargetFramework>
+    <RepositoryUrl>https://github.com/KirisameVanilla/Template</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Spawnpoints\" />
+  </ItemGroup>
+</Project>

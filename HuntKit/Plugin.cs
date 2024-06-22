@@ -1,24 +1,26 @@
-﻿using Dalamud.Game.Command;
+using Dalamud.Game.Command;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using System.IO;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
-using SamplePlugin.Windows;
+using ECommons;
+using HuntKit.Windows;
 
-namespace SamplePlugin;
+namespace HuntKit;
 
 public sealed class Plugin : IDalamudPlugin
 {
-    private const string CommandName = "/pmycommand";
+    private const string CommandName = "/huntkit";
 
     private DalamudPluginInterface PluginInterface { get; init; }
     private ICommandManager CommandManager { get; init; }
     public Configuration Configuration { get; init; }
 
-    public readonly WindowSystem WindowSystem = new("SamplePlugin");
+    public readonly WindowSystem WindowSystem = new("HuntKit");
     private ConfigWindow ConfigWindow { get; init; }
     private MainWindow MainWindow { get; init; }
+    private FindRankA FindRankA { get; init; }
 
     public Plugin(
         [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
@@ -28,20 +30,20 @@ public sealed class Plugin : IDalamudPlugin
         PluginInterface = pluginInterface;
         CommandManager = commandManager;
 
+        ECommonsMain.Init(pluginInterface, this);
+
         Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         Configuration.Initialize(PluginInterface);
 
         // you might normally want to embed resources and load them from the manifest stream
-        var file = new FileInfo(Path.Combine(PluginInterface.AssemblyLocation.Directory?.FullName!, "goat.png"));
-
-        // ITextureProvider takes care of the image caching and dispose
-        var goatImage = textureProvider.GetTextureFromFile(file);
 
         ConfigWindow = new ConfigWindow(this);
-        MainWindow = new MainWindow(this, goatImage);
+        MainWindow = new MainWindow(this);
+        FindRankA = new FindRankA(this);
 
         WindowSystem.AddWindow(ConfigWindow);
         WindowSystem.AddWindow(MainWindow);
+        WindowSystem.AddWindow(FindRankA);
 
         CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
         {
@@ -62,8 +64,11 @@ public sealed class Plugin : IDalamudPlugin
     {
         WindowSystem.RemoveAllWindows();
 
+        ECommonsMain.Dispose();
+
         ConfigWindow.Dispose();
         MainWindow.Dispose();
+        FindRankA.Dispose();
 
         CommandManager.RemoveHandler(CommandName);
     }
@@ -78,4 +83,5 @@ public sealed class Plugin : IDalamudPlugin
 
     public void ToggleConfigUI() => ConfigWindow.Toggle();
     public void ToggleMainUI() => MainWindow.Toggle();
+    public void ToggleFindRankA() => FindRankA.Toggle();
 }
