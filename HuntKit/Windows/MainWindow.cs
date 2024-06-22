@@ -17,7 +17,7 @@ public class MainWindow : Window, IDisposable
     // So that the user will see "My Amazing Window" as window title,
     // but for ImGui the ID is "My Amazing Window##With a hidden ID"
     public MainWindow(Plugin plugin)
-        : base("My Amazing Window##With a hidden ID", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
+        : base("Hunt Kit Main Window##mainWindow    ", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
     {
         SizeConstraints = new WindowSizeConstraints
         {
@@ -32,14 +32,19 @@ public class MainWindow : Window, IDisposable
 
     public override void Draw()
     {
-        if (ImGui.Button("Show Settings"))
+        if (ImGui.Button("Settings"))
         {
             Plugin.ToggleConfigUI();
         }
 
-        if (ImGui.Button("Show FindRankA Window"))
+        if (ImGui.Button("FindRankA"))
         {
             Plugin.ToggleFindRankA();
+        }
+
+        if (ImGui.Button("SetET"))
+        {
+            Plugin.ToggleSetET();
         }
 
         if (ImGui.Button("Test ECommons-Chat"))

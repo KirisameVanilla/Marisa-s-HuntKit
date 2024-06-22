@@ -6,21 +6,25 @@ using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
 using ECommons;
 using HuntKit.Windows;
+using Lumina.Excel.GeneratedSheets2;
 
 namespace HuntKit;
 
 public sealed class Plugin : IDalamudPlugin
 {
-    private const string CommandName = "/huntkit";
-
+    private const string MainWindowCommand = "/huntkit";
+    private const string SetETWindowCommand = "/setet";
+    private const string FindRankAWindowCommand = "/ranka";
+    private const string shoutET = "/shoutet";
     private DalamudPluginInterface PluginInterface { get; init; }
     private ICommandManager CommandManager { get; init; }
-    public Configuration Configuration { get; init; }
+    public static Configuration Configuration { get; set; }
 
     public readonly WindowSystem WindowSystem = new("HuntKit");
     private ConfigWindow ConfigWindow { get; init; }
     private MainWindow MainWindow { get; init; }
     private FindRankA FindRankA { get; init; }
+    private SetET SetET { get; init; }
 
     public Plugin(
         [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
@@ -40,14 +44,31 @@ public sealed class Plugin : IDalamudPlugin
         ConfigWindow = new ConfigWindow(this);
         MainWindow = new MainWindow(this);
         FindRankA = new FindRankA(this);
+        SetET = new SetET(this);
 
         WindowSystem.AddWindow(ConfigWindow);
         WindowSystem.AddWindow(MainWindow);
         WindowSystem.AddWindow(FindRankA);
+        WindowSystem.AddWindow(SetET);
 
-        CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
+        CommandManager.AddHandler(SetETWindowCommand, new CommandInfo(OnCommand)
         {
-            HelpMessage = "A useful message to display in /xlhelp"
+            HelpMessage = "call out set et window"
+        });
+
+        CommandManager.AddHandler(MainWindowCommand, new CommandInfo(OnCommand)
+        {
+            HelpMessage = "call out main window"
+        });
+
+        commandManager.AddHandler(FindRankAWindowCommand, new CommandInfo(OnCommand)
+        {
+            HelpMessage = "call out find rank A mob window"
+        });
+
+        commandManager.AddHandler(shoutET, new CommandInfo(OnCommand)
+        {
+            HelpMessage = "shout the ET"
         });
 
         PluginInterface.UiBuilder.Draw += DrawUI;
@@ -63,20 +84,24 @@ public sealed class Plugin : IDalamudPlugin
     public void Dispose()
     {
         WindowSystem.RemoveAllWindows();
-
-        ECommonsMain.Dispose();
-
         ConfigWindow.Dispose();
         MainWindow.Dispose();
         FindRankA.Dispose();
+        SetET.Dispose();
+        ECommonsMain.Dispose();
 
-        CommandManager.RemoveHandler(CommandName);
+        CommandManager.RemoveHandler(MainWindowCommand);
+        CommandManager.RemoveHandler(SetETWindowCommand);
+        CommandManager.RemoveHandler(FindRankAWindowCommand);
     }
 
     private void OnCommand(string command, string args)
     {
         // in response to the slash command, just toggle the display status of our main ui
-        ToggleMainUI();
+        if (command == MainWindowCommand) ToggleMainUI();
+        if (command == SetETWindowCommand) ToggleSetET();
+        if (command == FindRankAWindowCommand) ToggleFindRankA();
+        if (command == shoutET) SetET.shoutET();
     }
 
     private void DrawUI() => WindowSystem.Draw();
@@ -84,4 +109,5 @@ public sealed class Plugin : IDalamudPlugin
     public void ToggleConfigUI() => ConfigWindow.Toggle();
     public void ToggleMainUI() => MainWindow.Toggle();
     public void ToggleFindRankA() => FindRankA.Toggle();
+    public void ToggleSetET() => SetET.Toggle();
 }

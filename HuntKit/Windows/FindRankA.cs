@@ -33,6 +33,7 @@ public class FindRankA : Window, IDisposable
 
     public override void Draw()
     {
+        ImGui.Text("This function need vnavmesh to run. Please ensure you have installed vnavmesh before using this function.");
         if (ImGui.Combo("Version", ref selectedExpansion, expansions, expansions.Length))
         {
             switch (selectedExpansion)

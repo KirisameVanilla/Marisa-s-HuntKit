@@ -1,8 +1,8 @@
 {
   "Author": "KirisameVanilla",
   "Name": "HuntKit",
-  "Punchline": "A short one-liner that shows up in /xlplugins.",
-  "Description": "A description that shows up in /xlplugins. List any major slash-command(s).",
+  "Punchline": "Tool kit that can help player better hunt.",
+  "Description": "/huntkit\nNow working on auto find Rank A Mob",
   "ApplicableVersion": "any",
   "Tags": [
     "hunt"

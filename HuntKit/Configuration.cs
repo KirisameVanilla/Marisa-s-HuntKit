@@ -8,6 +8,7 @@ namespace HuntKit;
 public class Configuration : IPluginConfiguration
 {
     public int Version { get; set; } = 0;
+    public string ET = string.Empty;
 
     public bool IsConfigWindowMovable { get; set; } = true;
 
