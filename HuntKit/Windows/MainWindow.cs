@@ -1,6 +1,4 @@
 using System;
-using Dalamud.Interface.Internal;
-using Dalamud.Interface.Utility;
 using Dalamud.Interface.Windowing;
 using ECommons.Automation;
 using ECommons.Logging;
@@ -12,7 +10,6 @@ namespace HuntKit.Windows;
 public class MainWindow : Window, IDisposable
 {
     private Plugin Plugin;
-
     // We give this window a hidden ID using ##
     // So that the user will see "My Amazing Window" as window title,
     // but for ImGui the ID is "My Amazing Window##With a hidden ID"
@@ -25,10 +22,12 @@ public class MainWindow : Window, IDisposable
             MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
         };
 
-        Plugin = plugin;
+        this.Plugin = plugin;
     }
 
     public void Dispose() { }
+
+
 
     public override void Draw()
     {
@@ -45,6 +44,11 @@ public class MainWindow : Window, IDisposable
         if (ImGui.Button("SetET"))
         {
             Plugin.ToggleSetET();
+        }
+
+        if (ImGui.Button("Fate Helper"))
+        {
+            Plugin.ToggleFateHelper();
         }
 
         if (ImGui.Button("Test ECommons-Chat"))

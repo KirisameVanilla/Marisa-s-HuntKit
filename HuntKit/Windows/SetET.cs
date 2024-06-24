@@ -9,16 +9,14 @@ namespace HuntKit.Windows;
 
 public class SetET : Window, IDisposable
 {
-    private Plugin plugin;
     private string _ET = string.Empty;
-    public SetET(Plugin plugin):base("SetEt Window")
+    public SetET():base("SetEt Window")
     {
         SizeConstraints = new WindowSizeConstraints
         {
             MinimumSize = new Vector2(360, 110),
             MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
         };
-        this.plugin = plugin;
     }
 
     public override void Draw()
@@ -52,8 +50,12 @@ public class SetET : Window, IDisposable
 
     public static void setET(string ET)
     {
-        Plugin.Configuration.ET = ET;
-        Plugin.Configuration.Save();
+        if (ET.Length >= 3)
+        {
+            Plugin.Configuration.ET = ET;
+            Plugin.Configuration.Save();
+            Plugin.Print($"ET is set to {ET}");
+        }
     }
 
     public void Dispose() { } 
