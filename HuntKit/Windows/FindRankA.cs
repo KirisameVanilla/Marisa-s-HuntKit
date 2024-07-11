@@ -9,10 +9,10 @@ namespace HuntKit.Windows;
 public class FindRankA : Window, IDisposable
 {
     private Plugin plugin;
-    private readonly string[] expansions = { "ShB", "EW" };
-    public readonly string[] mapsEW = { "Thavnair", "Garlemald", "Labyrinthos", "Moon", "Elpis", "Ultima Thule" };
+    private readonly string[] expansions = { "ShB", "EW", "DT" };
+    public readonly string[] mapsEW = ["Thavnair", "Garlemald", "Labyrinthos", "Moon", "Elpis", "Ultima Thule"];
     public readonly string[] mapsShB = {"Lakeland"};
-    private string[] maps;
+    private string[]? maps = null;
     private int selectedExpansion;
 
     public FindRankA(Plugin plugin):base("FindRankA Window")

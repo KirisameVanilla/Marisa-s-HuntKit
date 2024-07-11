@@ -27,30 +27,12 @@ public class MainWindow : Window, IDisposable
 
     public void Dispose() { }
 
-
-
     public override void Draw()
     {
-        if (ImGui.Button("Settings"))
-        {
-            Plugin.ToggleConfigUI();
-        }
-
-        if (ImGui.Button("FindRankA"))
-        {
-            Plugin.ToggleFindRankA();
-        }
-
-        if (ImGui.Button("SetET"))
-        {
-            Plugin.ToggleSetET();
-        }
-
-        if (ImGui.Button("Fate Helper"))
-        {
-            Plugin.ToggleFateHelper();
-        }
-
+        if (ImGui.Button("Settings")) Plugin.ToggleConfigUI();
+        if (ImGui.Button("FindRankA")) Plugin.ToggleFindRankA();
+        if (ImGui.Button("SetET")) Plugin.ToggleSetET();
+        if (ImGui.Button("Fate Helper")) Plugin.ToggleFateHelper();
         if (ImGui.Button("Test ECommons-Chat"))
         {
             try
@@ -63,6 +45,5 @@ public class MainWindow : Window, IDisposable
                 throw;
             }
         }
-
     }
 }

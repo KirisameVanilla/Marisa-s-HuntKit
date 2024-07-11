@@ -1,7 +1,6 @@
 using System;
 using Dalamud.Interface.Windowing;
 using ECommons.Automation;
-using ECommons.Logging;
 using FFXIVClientStructs.FFXIV.Common.Math;
 using ImGuiNET;
 
