@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Dalamud.Game.ClientState.Fates;
 using Dalamud.Interface.Windowing;
 using ECommons.Automation;
@@ -15,7 +14,7 @@ namespace HuntKit.Windows;
 public class FateHelper : Window, IDisposable
 {
     private DateTime startTime = DateTime.MinValue;
-    private List<IFate> fateList;
+    private List<IFate>? fateList;
     public FateHelper() : base("Fate List")
     {
         SizeConstraints = new WindowSizeConstraints
@@ -25,12 +24,7 @@ public class FateHelper : Window, IDisposable
         };
     }
 
-    private static string SecondsToTime(long seconds)
-    {
-        long minute = seconds / 60;
-        long second = seconds % 60;
-        return minute >= 0 && second >= 0 ? $"{minute}:" + (second < 10 ? $"0{second}" : $"{second}") : "Need activation.";
-    }
+    private static string SecondsToTime(long seconds) => (seconds / 60) >= 0 && (seconds % 60) >= 0 ? $"{seconds / 60}:" + ((seconds % 60) < 10 ? $"0{seconds % 60}" : $"{seconds % 60}") : "Need activation.";
 
     public override void Draw()
     {
@@ -45,7 +39,7 @@ public class FateHelper : Window, IDisposable
             startTime = DateTime.MinValue;
         }
         
-        if (ImGui.Button("Stop vnav")) Chat.Instance.ExecuteCommand("/vnav stop");
+        if (ImGui.Button("Stop vnav")) NavmeshIPC.PathStop();
         if (ImGui.BeginTable("Fate Table##fate table", 4, ImGuiTableFlags.Resizable))
         {
             ImGui.TableSetupColumn("Fate Name",ImGuiTableColumnFlags.None);
@@ -60,19 +54,17 @@ public class FateHelper : Window, IDisposable
 
                 //get a sub-str like "1, 1, 1" but not like "<1, 1, 1>"
                 //the same as [1:fatePos.Length-2]
-                string fatePos = fate.Position.ToString()[1..^1];
-                var posList = fatePos.Split(',');
+                Vector3 fatePos = fate.Position;
 
                 string fateName = fate.Name.TextValue;
                 ImGui.TableNextColumn();
                 ImGui.Text(fateName);
 
                 ImGui.TableNextColumn();
-                if (ImGui.Button($"Fly To##{posList[0]}{posList[1]}{posList[2]}"))
+                if (ImGui.Button($"Fly To"))
                 {
-                    PluginLog.Log($"use vnav to flyto {posList[0]}{posList[1]}{posList[2]}");
                     Chat.Instance.SendMessage($"/e flyto {fateName}");
-                    Chat.Instance.ExecuteCommand($"/vnav flyto {posList[0]}{posList[1]}{posList[2]}");
+                    NavmeshIPC.PathfindAndMoveTo(fatePos, true);
                 }
 
                 ImGui.TableNextColumn();

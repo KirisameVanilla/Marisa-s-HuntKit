@@ -9,10 +9,7 @@ namespace HuntKit.Windows;
 
 public class MainWindow : Window, IDisposable
 {
-    private Plugin Plugin;
-    // We give this window a hidden ID using ##
-    // So that the user will see "My Amazing Window" as window title,
-    // but for ImGui the ID is "My Amazing Window##With a hidden ID"
+    private Plugin plugin;
     public MainWindow(Plugin plugin)
         : base("Hunt Kit Main Window##mainWindow    ", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
     {
@@ -22,17 +19,17 @@ public class MainWindow : Window, IDisposable
             MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
         };
 
-        this.Plugin = plugin;
+        this.plugin = plugin;
     }
 
     public void Dispose() { }
 
     public override void Draw()
     {
-        if (ImGui.Button("Settings")) Plugin.ToggleConfigUI();
-        if (ImGui.Button("FindRankA")) Plugin.ToggleFindRankA();
-        if (ImGui.Button("SetET")) Plugin.ToggleSetET();
-        if (ImGui.Button("Fate Helper")) Plugin.ToggleFateHelper();
+        if (ImGui.Button("Settings")) plugin.ToggleConfigUI();
+        if (ImGui.Button("FindRankA")) plugin.ToggleFindRankA();
+        if (ImGui.Button("SetET")) plugin.ToggleSetET();
+        if (ImGui.Button("Fate Helper")) plugin.ToggleFateHelper();
         if (ImGui.Button("Test ECommons-Chat"))
         {
             try

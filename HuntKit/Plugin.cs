@@ -59,6 +59,7 @@ public sealed class Plugin : IDalamudPlugin
 
         // Adds another button that is doing the same but for the main ui of the plugin
         pluginInterface.UiBuilder.OpenMainUi += ToggleMainUI;
+        NavmeshIPC.Init();
     }
 
     public void Dispose()
