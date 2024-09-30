@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.0.1</Version>
+    <Version>0.0.0.3</Version>
     <Description>A tool kit for Hunting.</Description>
     <PackageProjectUrl>https://github.com/KirisameVanilla/Template</PackageProjectUrl>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>

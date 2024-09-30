@@ -142,7 +142,12 @@ public static class Spawnpoints
         new Vector3(-659, 14, 601),
     ];
     static readonly List<Vector3> LivingMemory = [
-
+        new Vector3(-807,15,-424),
+        new Vector3(-121,53,-60),
+        new Vector3(-868,11,369),
+        new Vector3(-427,10,314),
+        new Vector3(-449,7,821),
+        new Vector3(280,15,498),
     ];
     public static Dictionary<string,List<Vector3>> SpawnpointsDictionary = new Dictionary<string, List<Vector3>>() {
         // Endwalker

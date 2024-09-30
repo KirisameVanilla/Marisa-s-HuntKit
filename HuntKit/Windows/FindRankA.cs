@@ -98,7 +98,7 @@ public class FindRankA : Window, IDisposable
 
     public override void Draw()
     {
-        ImGui.Text("Dont use this at Living Memory!!!!\nThere are vnavmesh's bugs in that zone");
+        ImGui.Text("pathfind will become slow in Living Memory. be patient");
         ImGui.Checkbox("Debug##debug", ref isDebug);
         var player = Svc.ClientState.LocalPlayer;
         if (player != null)
@@ -133,8 +133,8 @@ public class FindRankA : Window, IDisposable
                 index = 1;
                 isReady = true;
                 isRunning = true;
-                var spawnpoints = Spawnpoints.Spawnpoints.SpawnpointsDictionary[zone];
-                waymarks = [playerPos, .. spawnpoints];
+                var spawnPoints = Spawnpoints.Spawnpoints.SpawnpointsDictionary[zone];
+                waymarks = [playerPos, .. spawnPoints];
                 waymarks = FindShortestPath(waymarks);
             }
         }
@@ -147,7 +147,7 @@ public class FindRankA : Window, IDisposable
 
         if (!isReady && waymarks != null && isRunning && index< waymarks.Count)
         {
-            if (computeDistance(waymarks[index], playerPos) < 5)
+            if (computeDistance(waymarks[index], playerPos) < 1)
             {
                 isReady=true;
                 index++;
