@@ -1,11 +1,10 @@
 using System;
-using Dalamud.Interface.Windowing;
-using ECommons.Logging;
-using ImGuiNET;
 using System.Collections.Generic;
 using System.Numerics;
-using ECommons.DalamudServices;
 using System.Windows.Forms;
+using Dalamud.Interface.Windowing;
+using ECommons.DalamudServices;
+using ImGuiNET;
 
 namespace HuntKit.Windows;
 
