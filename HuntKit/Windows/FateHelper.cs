@@ -5,7 +5,6 @@ using Dalamud.Game.ClientState.Fates;
 using Dalamud.Interface.Windowing;
 using ECommons.Automation;
 using ECommons.DalamudServices;
-using ECommons.Logging;
 using FFXIVClientStructs.FFXIV.Common.Math;
 using ImGuiNET;
 

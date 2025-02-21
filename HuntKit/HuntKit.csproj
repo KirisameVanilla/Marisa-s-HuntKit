@@ -15,9 +15,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.0.3</Version>
+    <Version>0.0.0.4</Version>
     <Description>A tool kit for Hunting.</Description>
     <PackageProjectUrl>https://github.com/KirisameVanilla/Template</PackageProjectUrl>
+    <DalamudLibPath>$(appdata)\XIVLauncherCN\addon\Hooks\dev\</DalamudLibPath>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <IsPackable>false</IsPackable>
     <TargetFramework>net8.0-windows8.0</TargetFramework>
@@ -27,5 +28,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+      <Reference Include="ImGui.NET">
+          <HintPath>$(DalamudLibPath)ImGui.NET.dll</HintPath>
+          <Private>False</Private>
+      </Reference>
   </ItemGroup>
 </Project>
