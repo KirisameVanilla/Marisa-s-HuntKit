@@ -107,7 +107,7 @@ public static class Spawnpoints
         new Vector3(-611, 11, -678),
         new Vector3(-740, 7, -478),
         new Vector3(-252, 8, -211),
-        new Vector3(749, 20, -201),
+        new Vector3(765, 20, -57),
         new Vector3(-809, 149, 365),
         new Vector3(-281, 125, 100),
         new Vector3(-55, 125, 347),
